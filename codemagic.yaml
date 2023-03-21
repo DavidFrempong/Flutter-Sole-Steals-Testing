@@ -26,9 +26,9 @@ workflows:
       - build/**/outputs/**/*.apk
     publishing:
       firebase:
-        firebase_token: 1//0fbFZ9p53fJVkCgYIARAAGA8SNwF-L9Ird9WYy1e0rEbrBEtkWEeY7V_bhl3yGNmVaRFbBg17pgru49QeDyQY_kirTc_z5O3nIo0
+        firebase_token: $FIREBASE_TOKEN
         android:
-          app_id: 1:395841594471:ios:1e581ca03065c4bd9620c2
+          app_id: 1:395841594471:android:14bc87f48798341b9620c2
           artifact_type: 'apk'
           groups:
             - users
