@@ -17,9 +17,9 @@ class LocalNotifications {
 
     // appRouter.pushReplacementNamed('homeWithPath',
     //     params: {'path': response.payload ?? '/'});
-    appRouter.goNamed('homeWithPath',
-        params: {'path': response.payload ?? '/'});
-    
+    appRouter
+        .goNamed('homeWithPath', params: {'path': response.payload ?? '/'});
+
     // print(response);
   }
 
@@ -27,13 +27,21 @@ class LocalNotifications {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     const initSettingsAndroid = AndroidInitializationSettings('app_icon');
+    const initSettingsDarwin = DarwinInitializationSettings(
+        onDidReceiveLocalNotification: iosShowNotification);
 
     const initSettings = InitializationSettings(
-      android: initSettingsAndroid,
-    );
+        android: initSettingsAndroid, iOS: initSettingsDarwin);
 
-    await flutterLocalNotificationsPlugin.initialize(initSettings,
-        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+    await flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
+  }
+
+  static void iosShowNotification(
+      int id, String? title, String? body, String? data) {
+    showLocalNotification(id: id, title: title, body: body, data: data);
   }
 
   static void showLocalNotification({
@@ -50,7 +58,10 @@ class LocalNotifications {
       priority: Priority.high,
     );
 
-    const notificationDetails = NotificationDetails(android: androidDetails);
+    const notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: DarwinNotificationDetails(presentSound: true),
+    );
 
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 

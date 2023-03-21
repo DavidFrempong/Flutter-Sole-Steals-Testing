@@ -10,10 +10,9 @@ import 'package:solesteals/presentation/blocs/notifications/notifications_bloc.d
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
   await NotificationsBloc.initializeFCM();
   //TODO: temporal para iOS
-  // await LocalNotifications.initializeLocalNotifications();
+  await LocalNotifications.initializeLocalNotifications();
 
   runApp(MultiBlocProvider(
     providers: [
