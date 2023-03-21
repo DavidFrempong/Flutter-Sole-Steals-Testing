@@ -1,0 +1,34 @@
+workflows:
+  flutter-android:
+    name: Flutter Android
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+    environment:
+      android_signing:
+        - solesteals.keystore
+      groups:
+        - firebase_credentials
+      flutter: stable
+    scripts:
+      - name: Set up key.properties
+        script: | 
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/key.properties"
+      - name: Get Flutter packages
+        script: | 
+          flutter packages pub get
+      - name: Build APK with Flutter
+        script: | 
+          flutter build apk --release \
+            --build-name=1.0.$BUILD_NUMBER \
+            --build-number=$BUILD_NUMBER
+    artifacts:
+      - build/**/outputs/**/*.apk
+    publishing:
+      firebase:
+        firebase_token: 1//0fbFZ9p53fJVkCgYIARAAGA8SNwF-L9Ird9WYy1e0rEbrBEtkWEeY7V_bhl3yGNmVaRFbBg17pgru49QeDyQY_kirTc_z5O3nIo0
+        android:
+          app_id: 1:395841594471:ios:1e581ca03065c4bd9620c2
+          artifact_type: 'apk'
+          groups:
+            - users
