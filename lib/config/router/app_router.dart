@@ -1,12 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:solesteals/presentation/screens/home_screen.dart';
-import 'package:solesteals/screens/splash_screen.dart';
+import 'package:solesteals/presentation/screens/splash_screen.dart';
 
 final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      // builder: (context, state) => const HomeScreen(path: '/'),
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
