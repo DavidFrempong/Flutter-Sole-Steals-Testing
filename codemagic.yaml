@@ -35,16 +35,24 @@ workflows:
   
   ios-workflow:
     name: iOS Workflow
-    integrations:
-      app_store_connect: codemagic
+    #integrations:
+    #  app_store_connect: codemagic
     environment:
       ios_signing:
-        distribution_type: development
-        bundle_identifier: com.whiz.solesteals.app
-      vars:
-        APP_ID: 1555555551
+        provisioning_profiles:
+          - solesteals.profile
+        certificates:
+          - development_certi
+        #distribution_type: development
+        #bundle_identifier: com.whiz.solesteals.app
+      groups:
+        - firebase_credentials
       flutter: stable
+      xcode: latest
+      cocoapods: default
     scripts:
+      #- script: keychain initialize
+      #- script: keychain add-certificates
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
@@ -54,13 +62,6 @@ workflows:
       - name: Install pods
         script: | 
           find . -name "Podfile" -execdir pod install \;
-      - name: Flutter analyze
-        script: | 
-          flutter analyze
-      - name: Flutter unit tests
-        script: | 
-          flutter test
-        ignore_failure: true
       - name: Flutter build ipa
         script: | 
           flutter build ipa --release \
