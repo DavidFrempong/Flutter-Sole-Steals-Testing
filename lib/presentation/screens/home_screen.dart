@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 import 'package:solesteals/presentation/blocs/notifications/notifications_bloc.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -16,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<NotificationsBloc>().requestPermission();
   }
