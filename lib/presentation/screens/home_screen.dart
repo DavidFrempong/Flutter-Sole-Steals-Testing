@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<bool> _exitApp(BuildContext context) async {
+    if (Platform.isIOS) return Future.value(false);
+
     if (await _controllerGlobal.canGoBack()) {
       _controllerGlobal.goBack();
       return Future.value(false);
@@ -34,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     context.select((NotificationsBloc bloc) => bloc.state.status);
 
-    return Scaffold(
-      body: WillPopScope(
+    Widget homeWebView() {
+      return WillPopScope(
         onWillPop: () => _exitApp(context),
         child: Container(
           color: Colors.black,
@@ -49,7 +53,25 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
+      );
+    }
+
+    if (Platform.isIOS) {
+      return Scaffold(
+        body: GestureDetector(
+          onPanEnd: (details) {
+            if (details.velocity.pixelsPerSecond.dx < 0 ||
+                details.velocity.pixelsPerSecond.dx > 0) {
+              _controllerGlobal.goBack();
+            }
+          },
+          child: homeWebView(),
+        ),
+      );
+    }
+
+    return Scaffold(
+      body: homeWebView(),
     );
   }
 }
