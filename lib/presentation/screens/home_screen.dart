@@ -59,9 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (Platform.isIOS) {
       return Scaffold(
         body: GestureDetector(
-          onPanEnd: (details) {
-            if (details.velocity.pixelsPerSecond.dx < 0 ||
-                details.velocity.pixelsPerSecond.dx > 0) {
+          onHorizontalDragEnd: (details) {
+            if (details.velocity.pixelsPerSecond.dx > 50) {
               _controllerGlobal.goBack();
             }
           },
