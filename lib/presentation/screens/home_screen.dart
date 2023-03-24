@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<bool> _exitApp(BuildContext context) async {
+    print('TESTTESTETST');
     if (Platform.isIOS) return Future.value(false);
 
     if (await _controllerGlobal.canGoBack()) {
@@ -60,10 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
       return Scaffold(
         body: GestureDetector(
           onHorizontalDragStart: (details) {
-            // if (details.velocity.pixelsPerSecond.dx > 80) {
-            if (details.globalPosition.dx < 100) {
-              _controllerGlobal.goBack();
-            }
+            if (details.localPosition.dx > 50) return;
+            _controllerGlobal.goBack();
           },
           child: homeWebView(),
         ),
