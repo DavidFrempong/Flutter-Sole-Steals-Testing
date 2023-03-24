@@ -13,10 +13,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late WebViewController _controllerGlobal;
+
   @override
   void initState() {
     super.initState();
     context.read<NotificationsBloc>().requestPermission();
+  }
+
+  Future<bool> _exitApp(BuildContext context) async {
+    if (await _controllerGlobal.canGoBack()) {
+      _controllerGlobal.goBack();
+      return Future.value(false);
+    } else {
+      return Future.value(true);
+    }
   }
 
   @override
@@ -24,12 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
     context.select((NotificationsBloc bloc) => bloc.state.status);
 
     return Scaffold(
-      body: Container(
-        color: Colors.black,
-        child: SafeArea(
-          child: WebView(
-            initialUrl: 'https://www.solesteals.com${widget.path}',
-            javascriptMode: JavascriptMode.unrestricted,
+      body: WillPopScope(
+        onWillPop: () => _exitApp(context),
+        child: Container(
+          color: Colors.black,
+          child: SafeArea(
+            child: WebView(
+              onWebViewCreated: (WebViewController controller) {
+                _controllerGlobal = controller;
+              },
+              initialUrl: 'https://www.solesteals.com${widget.path}',
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
           ),
         ),
       ),

@@ -74,7 +74,7 @@ class _HandleNotificationInteractionsState
     context.read<NotificationsBloc>().handleRemoteMessage(message);
 
     final path = message.data['path'];
-    appRouter.pushReplacementNamed('homeWithPath', params: {'path': path});
+    appRouter.pushNamed('homeWithPath', params: {'path': path});
   }
 
   @override

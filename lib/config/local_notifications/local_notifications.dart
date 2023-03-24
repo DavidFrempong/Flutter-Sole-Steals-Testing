@@ -13,7 +13,7 @@ class LocalNotifications {
 // cuando hace click en el local notification
   static void onDidReceiveNotificationResponse(NotificationResponse response) {
     appRouter
-        .goNamed('homeWithPath', params: {'path': response.payload ?? '/'});
+        .pushNamed('homeWithPath', params: {'path': response.payload ?? '/'});
 
   }
 
