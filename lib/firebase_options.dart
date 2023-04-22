@@ -53,12 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB8G3UGIsSUioSHRrggMdZXT6gnYoEUuuQ',
-    appId: '1:994417380298:ios:36eed58cd7fd1114945d33',
-    messagingSenderId: '994417380298',
-    projectId: 'push-notification-solesteals',
-    storageBucket: 'push-notification-solesteals.appspot.com',
-    iosClientId: '994417380298-4vmk5g6rjffib35bbofkovttqme1qs2m.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA_Xpnh5H8IdAWmjSJGK3bTASH8G_5bOt8',
+    appId: '1:395841594471:ios:cf523f0bea5678279620c2',
+    messagingSenderId: '395841594471',
+    projectId: 'push-notification-b1ddc',
+    storageBucket: 'push-notification-b1ddc.appspot.com',
+    iosClientId: '395841594471-eov3871f76cng77chen8n9bq8dabtbus.apps.googleusercontent.com',
     iosBundleId: 'ios.app.solesteal1',
   );
 }
