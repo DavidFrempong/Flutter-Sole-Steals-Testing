@@ -54,11 +54,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA_Xpnh5H8IdAWmjSJGK3bTASH8G_5bOt8',
-    appId: '1:395841594471:ios:6401e8ac9741bf319620c2',
+    appId: '1:395841594471:ios:ff2869f609ced6009620c2',
     messagingSenderId: '395841594471',
     projectId: 'push-notification-b1ddc',
     storageBucket: 'push-notification-b1ddc.appspot.com',
-    iosClientId: '395841594471-q9q60rpj4qfi09all7dhv1u5in8q651p.apps.googleusercontent.com',
-    iosBundleId: 'com.whiz.solesteals.test',
+    iosClientId: '395841594471-5941t00j5rqcdihcms0a1h7fltkqkiku.apps.googleusercontent.com',
+    iosBundleId: 'com.whiz.solesteals.app',
   );
 }
