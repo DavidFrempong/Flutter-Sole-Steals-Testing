@@ -57,18 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    if (Platform.isIOS) {
-      return Scaffold(
-        body: GestureDetector(
-          onHorizontalDragStart: (details) {
-            if (details.localPosition.dx > 50) return;
-            _controllerGlobal.goBack();
-          },
-          child: homeWebView(),
-        ),
-      );
-    }
-
     return Scaffold(
       body: homeWebView(),
     );
