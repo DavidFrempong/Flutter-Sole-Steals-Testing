@@ -25,24 +25,16 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   int pushNumberId = 0;
 
   final Future<void> Function() requestLocalNotificationPermission;
-  final void Function({
-    required int id,
-    String? title,
-    String? body,
-    String? data,
-  })? showLocalNotification;
+  final void Function({ required int id, String? title, String? body, String? data })? showLocalNotification;
 
-  NotificationsBloc({
-    this.showLocalNotification,
-    required this.requestLocalNotificationPermission,
-  }) : super(const NotificationsState()) {
+  NotificationsBloc({this.showLocalNotification, required this.requestLocalNotificationPermission}) : super(const NotificationsState()) {
     on<NotificationsStatusChanged>(_notificationStatusChanged);
     on<NotificationReceived>(_onPushMessageReceived);
 
     // Verificar estado de las notificaciones
     _initialStatusCheck();
 
-    // Listener para notificaciones foreground
+    // Listener para notificaciones foreground // primer plano
     _onForegroundMessage();
   }
 
@@ -59,10 +51,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     _getFCMToken();
   }
 
-  void _onPushMessageReceived(
-      NotificationReceived event, Emitter<NotificationsState> emit) {
-    emit(state
-        .copyWith(notifications: [event.pushMessage, ...state.notifications]));
+  void _onPushMessageReceived(NotificationReceived event, Emitter<NotificationsState> emit) {
+    emit(state.copyWith(notifications: [event.pushMessage, ...state.notifications]));
     _getFCMToken();
   }
 
@@ -85,6 +75,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   void handleRemoteMessage(RemoteMessage message) {
     if (message.notification == null) return;
     final messageId = message.messageId?.replaceAll(':', '').replaceAll('%', '') ?? '';
+
+    // agregar al arreglo de notificaciones recibidas
     final notification = PushMessage(
       messageId:messageId,
       title: message.notification!.title ?? '',
@@ -95,6 +87,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
           : message.notification!.apple?.imageUrl,
     );
 
+    // mostrar notificacion local
     if (showLocalNotification != null) {
       showLocalNotification!(
         id: ++pushNumberId,
@@ -103,6 +96,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         data:  notification.path,
       );
     }
+
+    print('handleRemoteMessage');
 
     add(NotificationReceived(notification));
   }
