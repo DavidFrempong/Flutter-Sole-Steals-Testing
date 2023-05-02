@@ -10,8 +10,10 @@ import 'package:solesteals/presentation/blocs/notifications/notifications_bloc.d
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // TODO: inicializar push notifications
   await NotificationsBloc.initializeFCM();
-  //TODO: temporal para iOS
+  //TODO: inicializar local notifications
   await LocalNotifications.initializeLocalNotifications();
 
   runApp(MultiBlocProvider(
@@ -35,12 +37,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: appRouter,
       theme: AppTheme().getTheme(),
+      // TODO! `HandleNotificationInteractions` envuelve todo el App dentro de este 
       builder: (context, child) =>
           HandleNotificationInteractions(child: child!),
     );
   }
 }
 
+// Para cuando hace click en la notificacion en background
+// la interacion en primer plano lo maneja `onDidReceiveNotificationResponse`
 class HandleNotificationInteractions extends StatefulWidget {
   final Widget child;
   const HandleNotificationInteractions({super.key, required this.child});
@@ -71,8 +76,10 @@ class _HandleNotificationInteractionsState
   }
 
   void _handleMessage(RemoteMessage message) {
-    context.read<NotificationsBloc>().handleRemoteMessage(message);
+    // TODO! llama a la funcion `handleRemoteMessage` del bloc
+    // context.read<NotificationsBloc>().handleRemoteMessage(message);
 
+    // TODO! redirige a la pantalla 
     final path = message.data['path'];
     appRouter.pushNamed('homeWithPath', params: {'path': path});
   }
