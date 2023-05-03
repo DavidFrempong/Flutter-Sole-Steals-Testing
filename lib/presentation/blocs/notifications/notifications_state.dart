@@ -6,7 +6,7 @@ class NotificationsState extends Equatable {
   final List<PushMessage> notifications;
 
   const NotificationsState({
-    this.status = AuthorizationStatus.notDetermined,
+    this.status = AuthorizationStatus.authorized,
     this.notifications = const [],
   });
 
