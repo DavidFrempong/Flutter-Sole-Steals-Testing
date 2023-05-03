@@ -79,9 +79,10 @@ class _HandleNotificationInteractionsState
     // TODO! llama a la funcion `handleRemoteMessage` del bloc
     // context.read<NotificationsBloc>().handleRemoteMessage(message);
 
-    // TODO! redirige a la pantalla 
+   // TODO! redirige a la pantalla 
     final path = message.data['path'];
-    appRouter.pushNamed('homeWithPath', params: {'path': path});
+    context.read<NotificationsBloc>().add(NotificationPathChanged(path));
+    appRouter.replaceNamed('homeWithPath', params: {'path': path});
   }
 
   @override
