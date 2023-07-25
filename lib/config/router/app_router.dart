@@ -16,8 +16,6 @@ final appRouter = GoRouter(
     GoRoute(
       name: 'homeWithPath',
       path: '/homeWithPath/:path',
-      // builder: (context, state) =>
-      //     HomeScreen(path: state.params['path'] ?? '/'),
       pageBuilder: (BuildContext context, GoRouterState state) {
         return CustomTransitionPage<void>(
           key: state.pageKey,
@@ -27,8 +25,6 @@ final appRouter = GoRouter(
               Animation<double> animation,
               Animation<double> secondaryAnimation,
               Widget child) {
-            // Change the opacity of the screen using a Curve based on the the animation's
-            // value
             return FadeTransition(
               opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
               child: child,

@@ -66,12 +66,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     // saber el estado actual
     final settings = await messaging.getNotificationSettings();
     add(NotificationsStatusChanged(settings.authorizationStatus));
-    // _getFCMToken();
   }
 
   void _getFCMToken() async {
-    // final settings = await messaging.getNotificationSettings();
-    // if(settings.authorizationStatus != AuthorizationStatus.authorized) return;
     if (state.status != AuthorizationStatus.authorized) return;
     final token = await messaging.getToken();
     print(token);
@@ -103,15 +100,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       );
     }
 
-    print('handleRemoteMessage');
-
     add(NotificationReceived(notification));
   }
 
   void _onForegroundMessage() {
     FirebaseMessaging.onMessage.listen(handleRemoteMessage);
   }
-  //
 
   void requestPermission() async {
     NotificationSettings settings = await messaging.requestPermission(
@@ -124,12 +118,10 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       sound: true,
     );
     // Solicitar permisos local notifications
-    // await LocalNotifications.requestPermissionLocalNotifications();
     await requestLocalNotificationPermission();
 
     // añadir nuevo evento
     add(NotificationsStatusChanged(settings.authorizationStatus));
-    // _getFCMToken();
   }
 
   PushMessage? getMessageById(String pushMessageId) {

@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:solesteals/config/local_notifications/local_notifications.dart';
 
 import 'package:solesteals/presentation/blocs/notifications/notifications_bloc.dart';
 
@@ -24,10 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // context.select((NotificationsBloc bloc) => bloc.state.status);
-    // final path = BlocProvider.of<NotificationsBloc>(context).state.path;
-    // print('[PATH]: ${path}');
-
     return Scaffold(
       body: Container(
         color: Colors.black,

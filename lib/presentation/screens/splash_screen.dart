@@ -16,8 +16,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // context.watch<NotificationsBloc>().
-    // final path = context.watch<NotificationsBloc>().state.path;
     _splash();
   }
 

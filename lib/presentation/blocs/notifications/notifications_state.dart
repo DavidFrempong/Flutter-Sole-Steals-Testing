@@ -1,11 +1,8 @@
 part of 'notifications_bloc.dart';
 
 class NotificationsState extends Equatable {
-  // state de autorizar notificaciones
   final AuthorizationStatus status;
-  // crear modelo de notificacions
   final List<PushMessage> notifications;
-  // state del path
   final String path;
 
   const NotificationsState({
@@ -14,8 +11,6 @@ class NotificationsState extends Equatable {
     this.path = '/'
   });
 
-  // siempre usar un copyWith del objeto a devolver
-  // agregar todas las variables opcionales
   NotificationsState copyWith({
     AuthorizationStatus? status,
     List<PushMessage>? notifications,
